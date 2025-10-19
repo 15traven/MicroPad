@@ -23,6 +23,40 @@ namespace
 
 extern "C" IMAGE_DOS_HEADER __ImageBase;
 
+static void open_editor_window()
+{
+	STARTUPINFO startup_info{ sizeof(startup_info) };
+	PROCESS_INFORMATION process_info{};
+	LPCWSTR exe_path = L"MicroPad.Editor.exe";
+
+	WCHAR command_line[MAX_PATH];
+	wcscpy_s(command_line, exe_path);
+
+	BOOL result = CreateProcessW(nullptr,
+								 command_line,
+								 nullptr,
+								 nullptr,
+								 FALSE,
+								 0,
+								 nullptr,
+								 nullptr,
+								 &startup_info,
+								 &process_info);
+
+	if (result)
+	{
+		if (process_info.hProcess)
+		{
+			CloseHandle(process_info.hProcess);
+		}
+
+		if (process_info.hThread)
+		{
+			CloseHandle(process_info.hThread);
+		}
+	}
+}
+
 static HICON load_icon()
 {
 	DWORD value = 1;
@@ -118,6 +152,8 @@ static LRESULT __stdcall tray_icon_window_proc(HWND window, UINT message, WPARAM
 				SetForegroundWindow(window);
 				TrackPopupMenu(h_sub_menu, TPM_CENTERALIGN | TPM_BOTTOMALIGN, mouse_pointer.x, mouse_pointer.y, 0, window, nullptr);
 				break;
+			case WM_LBUTTONUP:
+				open_editor_window();
 			}
 		}
 		else if (message == wm_taskabr_restart)
