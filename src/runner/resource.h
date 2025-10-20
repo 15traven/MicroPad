@@ -6,6 +6,7 @@
 #define TRAY_ICON_BLACK                 102
 #define ID_TRAY_MENU                    103
 #define ID_QUIT_MENU_COMMAND            40001
+#define ID_OPEN_MENU_COMMAND            40002
 
 // Next default values for new objects
 // 

@@ -95,6 +95,9 @@ static void handle_tray_command(HWND window, const WPARAM command_id, LPARAM lPa
 {
 	switch (command_id)
 	{
+	case ID_OPEN_MENU_COMMAND:
+		open_editor_window();
+		break;
 	case ID_QUIT_MENU_COMMAND:
 		if (h_menu)
 		{
@@ -103,7 +106,6 @@ static void handle_tray_command(HWND window, const WPARAM command_id, LPARAM lPa
 
 		DestroyWindow(window);
 		break;
-
 	}
 }
 
