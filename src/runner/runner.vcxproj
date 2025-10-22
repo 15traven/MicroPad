@@ -142,11 +142,13 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="pch.cpp" />
+    <ClCompile Include="editor_window.cpp" />
     <ClCompile Include="tray_icon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="editor_window.h" />
     <ClInclude Include="tray_icon.h" />
   </ItemGroup>
   <ItemGroup>

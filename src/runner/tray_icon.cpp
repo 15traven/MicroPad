@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "resource.h"
 #include "tray_icon.h"
+#include "editor_window.h"
 
 namespace
 {
@@ -19,60 +20,9 @@ namespace
 	HMENU h_menu = nullptr;
 	HMENU h_sub_menu = nullptr;
 	POINT tray_icon_click_point;
-
-	DWORD g_editor_process_id = 0;
 }
 
 extern "C" IMAGE_DOS_HEADER __ImageBase;
-
-static void open_editor_window()
-{
-	STARTUPINFO startup_info{ sizeof(startup_info) };
-	PROCESS_INFORMATION process_info = { 0 };
-	LPCWSTR exe_path = L"MicroPad.Editor.exe";
-
-	WCHAR command_line[MAX_PATH];
-	wcscpy_s(command_line, exe_path);
-
-	if (!CreateProcessW(nullptr,
-		command_line,
-		nullptr,
-		nullptr,
-		FALSE,
-		0,
-		nullptr,
-		nullptr,
-		&startup_info,
-		&process_info))
-	{
-		if (process_info.hProcess)
-		{
-			CloseHandle(process_info.hProcess);
-		}
-
-		if (process_info.hThread)
-		{
-			CloseHandle(process_info.hThread);
-		}
-	}
-
-	g_editor_process_id = process_info.dwProcessId;
-}
-
-static void close_editor_window()
-{
-	if (g_editor_process_id != 0)
-	{
-		HANDLE proc{ OpenProcess(PROCESS_ALL_ACCESS, false, g_editor_process_id) };
-		if (proc)
-		{
-			WaitForSingleObject(proc, 1500);
-			TerminateProcess(proc, 0);
-		}
-		
-		g_editor_process_id = 0;
-	}
-}
 
 static HICON load_icon()
 {
