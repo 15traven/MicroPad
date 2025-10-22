@@ -1,20 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Window
-    x:Class="editor_ui.MainWindow"
+<UserControl
+    x:Class="editor_ui.Controls.Editor.EditorControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:editor_ui"
+    xmlns:local="using:editor_ui.Controls.Editor"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:controls="using:editor_ui.Controls.Editor"
-    mc:Ignorable="d"
-    Title="editor-ui">
-
-    <Window.SystemBackdrop>
-        <MicaBackdrop Kind="Base"/>
-    </Window.SystemBackdrop>
+    xmlns:controls="using:Microsoft.UI.Xaml.Controls"
+    mc:Ignorable="d">
 
     <Grid>
-        <controls:EditorControl/>
+        <controls:WebView2 x:Name="WebView" />
     </Grid>
-</Window>
+</UserControl>

@@ -426,3 +426,5 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+
+src/editor-ui/Assets/EditorWeb
