@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react'
-import { EditorState } from '@codemirror/state'
+import { EditorState, Compartment } from '@codemirror/state'
 import { EditorView, keymap } from '@codemirror/view'
 import { markdown } from '@codemirror/lang-markdown'
 
@@ -7,6 +7,8 @@ interface Props {
   initialDoc: string,
   onChange?: (state: EditorState) => void
 }
+
+export const themeCompartment = new Compartment()
 
 const useCodeMirror = <T extends Element>(
   props: Props
@@ -27,7 +29,8 @@ const useCodeMirror = <T extends Element>(
           if (update.changes) {
             onChange && onChange(update.state)
           }
-        })
+        }),
+        themeCompartment.of([])
       ]
     })
 
