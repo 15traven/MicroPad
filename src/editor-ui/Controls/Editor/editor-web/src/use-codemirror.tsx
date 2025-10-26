@@ -1,14 +1,14 @@
 import { useEffect, useState, useRef } from 'react'
-import { EditorState, Compartment } from '@codemirror/state'
+import { EditorState } from '@codemirror/state'
 import { EditorView, keymap } from '@codemirror/view'
-import { markdown } from '@codemirror/lang-markdown'
+import { markdown, markdownLanguage } from '@codemirror/lang-markdown'
+import { languages } from '@codemirror/language-data'
+import { themeCompartment, editorThemeBase } from './theme'
 
 interface Props {
   initialDoc: string,
   onChange?: (state: EditorState) => void
 }
-
-export const themeCompartment = new Compartment()
 
 const useCodeMirror = <T extends Element>(
   props: Props
@@ -23,14 +23,18 @@ const useCodeMirror = <T extends Element>(
     const startState = EditorState.create({
       doc: props.initialDoc,
       extensions: [
-        markdown(),
+        markdown({
+          base: markdownLanguage,
+          codeLanguages: languages
+        }),
+        editorThemeBase,
+        themeCompartment.of([]),
         EditorView.lineWrapping,
         EditorView.updateListener.of(update => {
           if (update.changes) {
             onChange && onChange(update.state)
           }
-        }),
-        themeCompartment.of([])
+        })
       ]
     })
 

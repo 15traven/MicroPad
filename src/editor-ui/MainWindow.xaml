@@ -15,6 +15,13 @@
     </Window.SystemBackdrop>
 
     <Grid>
-        <controls:EditorControl/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TitleBar x:Name="TitleBar"/>
+
+        <controls:EditorControl Grid.Row="1"/>
     </Grid>
 </Window>

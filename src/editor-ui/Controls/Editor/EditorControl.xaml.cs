@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.Web.WebView2.Core;
+using Windows.UI;
 
 namespace editor_ui.Controls.Editor
 {
@@ -35,7 +36,7 @@ namespace editor_ui.Controls.Editor
         {
             if (args.IsSuccess)
             {
-                await SendThemeToWebView();
+                await ApplyTheme();
             }
         }
 
@@ -43,13 +44,22 @@ namespace editor_ui.Controls.Editor
         {
             if (WebView.CoreWebView2 != null)
             {
-                await SendThemeToWebView();
+                await ApplyTheme();
             }
         }
 
-        private async Task SendThemeToWebView()
+        private async Task ApplyTheme()
         {
             string theme = Wrapper.ActualTheme.ToString().ToLower();
+
+            if (theme == "dark")
+            {
+                WebView.DefaultBackgroundColor = Color.FromArgb(255, 39, 39, 39);
+            }
+            else
+            {
+                WebView.DefaultBackgroundColor = Color.FromArgb(255, 255, 255, 255);
+            }
 
             var core_wv2 = WebView.CoreWebView2;
             if (core_wv2 != null)

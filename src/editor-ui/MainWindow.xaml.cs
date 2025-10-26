@@ -11,8 +11,9 @@ namespace editor_ui
         public MainWindow()
         {
             InitializeComponent();
-            this.ExtendsContentIntoTitleBar = true;
             this.AppWindow.IsShownInSwitchers = false;
+            this.ExtendsContentIntoTitleBar = true;
+            this.SetTitleBar(TitleBar);
 
             OverlappedPresenter presenter = OverlappedPresenter.Create();
             presenter.IsMaximizable = false;
