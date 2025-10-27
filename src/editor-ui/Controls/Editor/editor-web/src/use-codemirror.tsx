@@ -1,6 +1,13 @@
 import { useEffect, useState, useRef } from 'react'
 import { EditorState } from '@codemirror/state'
 import { EditorView, keymap } from '@codemirror/view'
+import { 
+  defaultKeymap, 
+  history, 
+  historyKeymap, 
+  indentWithTab 
+} from '@codemirror/commands'
+import { searchKeymap, highlightSelectionMatches } from '@codemirror/search'
 import { markdown, markdownLanguage } from '@codemirror/lang-markdown'
 import { languages } from '@codemirror/language-data'
 import { themeCompartment, editorThemeBase } from './theme'
@@ -27,6 +34,13 @@ const useCodeMirror = <T extends Element>(
           base: markdownLanguage,
           codeLanguages: languages
         }),
+        history(),
+        keymap.of([
+          ...defaultKeymap,
+          ...historyKeymap,
+          ...searchKeymap,
+          indentWithTab
+        ]),
         editorThemeBase,
         themeCompartment.of([]),
         EditorView.lineWrapping,

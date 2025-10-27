@@ -6,7 +6,6 @@ import {
   editorThemeLight
 } from './theme'
 import useCodeMirror from './use-codemirror'
-import './styles/editor.css'
 
 interface Props {
   initialDoc: string,
